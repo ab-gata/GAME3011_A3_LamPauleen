@@ -63,7 +63,10 @@ public class TileGrid : MonoBehaviour
                     if(item.CurrentSprite == nextNextSquare.CurrentSprite)
                     {
                         Debug.Log("we have a horizontal match!");
-                        return true;
+                        DropColomn(item.PositionVector); 
+                        DropColomn(nextSquare.PositionVector); 
+                        DropColomn(nextNextSquare.PositionVector); 
+                        return false;
                     }
                 }
             }
@@ -82,12 +85,39 @@ public class TileGrid : MonoBehaviour
                     if (item.CurrentSprite == nextNextSquare.CurrentSprite)
                     {
                         Debug.Log("we have a vertical match!");
-                        return true;
+                        DropColomn(item.PositionVector);
+                        DropColomn(nextSquare.PositionVector);
+                        DropColomn(nextNextSquare.PositionVector);
+                        return false;
                     }
                 }
             }
         }
-        return false;
+        return true;
+    }
+
+    private void DropColomn(Vector2 pos)
+    {
+        SquareBehaviour curr = GetSquareBehaviourByPosition(pos.x, pos.y);
+        SquareBehaviour next;
+
+        SpriteNumber firstSprite;
+
+        for (float y = pos.y; y > 0; y++)
+        {
+            next = GetSquareBehaviourByPosition(pos.x, y - 1);
+
+            // Swap tile
+            firstSprite = curr.CurrentSprite;
+            curr.changeSquare(next.CurrentSprite);
+            next.changeSquare(firstSprite);
+
+            curr = next;
+        }
+
+        // Randomly set the last tile
+        int rand = (int)Random.Range(1.0f, 6.0f);
+        GetSquareBehaviourByPosition(pos.x, 0).changeSquare(rand);
     }
 
     public void RemoveHighlights()
@@ -109,10 +139,5 @@ public class TileGrid : MonoBehaviour
             }
         }
         return null;
-    }
-
-    private void DropColomn()
-    {
-
     }
 }

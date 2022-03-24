@@ -262,7 +262,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe90219d936a3a94bb64491c0410e806, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  criteriaText: {fileID: 0}
+  firstSquare: {fileID: 0}
+  tileGrid: {fileID: 856435060}
+  criteriaText: {fileID: 1105658509}
   infoText: {fileID: 960999264}
 --- !u!4 &507993184
 Transform:

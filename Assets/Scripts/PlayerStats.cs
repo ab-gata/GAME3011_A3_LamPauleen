@@ -39,7 +39,10 @@ public class PlayerStats : MonoBehaviour
 
     public void CheckSquares()
     {
-        tileGrid.CheckSquares();
+        while (tileGrid.CheckSquares())
+        {
+
+        }
         tileGrid.RemoveHighlights();
     }
 }
