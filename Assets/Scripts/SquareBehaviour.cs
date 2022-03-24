@@ -16,6 +16,7 @@ public enum SpriteNumber
 
 public class SquareBehaviour : MonoBehaviour
 {
+    // Sprite images
     [SerializeField]
     private Sprite sprite1;
     [SerializeField]
@@ -29,12 +30,17 @@ public class SquareBehaviour : MonoBehaviour
     [SerializeField]
     private Sprite sprite6;
 
+    // Hightlight colour when pressed
+    [SerializeField]
+    private Color highlightColour;
+
     // position of square among the others
     private Vector2 positionVector = Vector2.zero;
     public Vector2 PositionVector { get { return positionVector; } }
 
     // The value of the resources in the square
-    private SpriteNumber spriteNumber = SpriteNumber.ONE;
+    private SpriteNumber currentSprite = SpriteNumber.ONE;
+    public SpriteNumber CurrentSprite { get { return currentSprite; } }
 
     // Reference to playerstats
     PlayerStats player = null;
@@ -50,11 +56,54 @@ public class SquareBehaviour : MonoBehaviour
         positionVector = new Vector2(x, y);
     }
 
+    // When square is clicked, highlight
+    public void SquareClicked()
+    {
+        if (player.SecondSquareClicked)
+        {
+            // Swap tiles
+            SpriteNumber firstSprite = player.firstSquare.currentSprite;
+            player.firstSquare.changeSquare(currentSprite);
+            changeSquare(firstSprite);
+
+            // reset click state checker
+            player.SecondSquareClicked = false;
+
+            // check for matches
+            player.CheckSquares();
+        }
+        else
+        {
+            // highlight click
+            hightlightSquare(true);
+
+            // Save square for later reference
+            player.firstSquare = GetComponent<SquareBehaviour>();
+
+            // set click state checker
+            player.SecondSquareClicked = true;
+        }
+    }
+
+    // Function to highlight that the square has been clicked
+    public void hightlightSquare(bool b)
+    {
+        if (b)
+        {
+            GetComponent<Image>().color = highlightColour;
+        }
+        else
+        {
+            GetComponent<Image>().color = new Color(1.0f, 1.0f, 1.0f, 1.0f);
+        }
+    }
+
+    // Functions to change square
     public void changeSquare(SpriteNumber sn)
     {
-        spriteNumber = sn;
+        currentSprite = sn;
 
-        switch (spriteNumber)
+        switch (currentSprite)
         {
             case SpriteNumber.ONE:
                 GetComponent<Image>().sprite = sprite1;
@@ -83,27 +132,27 @@ public class SquareBehaviour : MonoBehaviour
         {
             case 1:
                 GetComponent<Image>().sprite = sprite1;
-                spriteNumber = SpriteNumber.ONE;
+                currentSprite = SpriteNumber.ONE;
                 break;
             case 2:
                 GetComponent<Image>().sprite = sprite2;
-                spriteNumber = SpriteNumber.TWO;
+                currentSprite = SpriteNumber.TWO;
                 break;
             case 3:
                 GetComponent<Image>().sprite = sprite3;
-                spriteNumber = SpriteNumber.THREE;
+                currentSprite = SpriteNumber.THREE;
                 break;
             case 4:
                 GetComponent<Image>().sprite = sprite4;
-                spriteNumber = SpriteNumber.FOUR;
+                currentSprite = SpriteNumber.FOUR;
                 break;
             case 5:
                 GetComponent<Image>().sprite = sprite5;
-                spriteNumber = SpriteNumber.FIVE;
+                currentSprite = SpriteNumber.FIVE;
                 break;
             case 6:
                 GetComponent<Image>().sprite = sprite6;
-                spriteNumber = SpriteNumber.SIX;
+                currentSprite = SpriteNumber.SIX;
                 break;
         }
     }

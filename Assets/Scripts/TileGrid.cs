@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class TileGrid : MonoBehaviour
 {
+    // Tile Set Up
     [SerializeField, Header("Tile Set Up")]
     private Image squarePrefab;
     [SerializeField]
@@ -38,37 +39,80 @@ public class TileGrid : MonoBehaviour
         }
     }
 
-    private void helooooooooooo()
+    public bool CheckSquares()
     {
         int rand = (int)Random.Range(1.0f, 6.0f);
+        SquareBehaviour nextSquare;
+        SquareBehaviour nextNextSquare;
 
         Debug.Log(rand);
 
+        foreach (var item in squares)
+        {
+            // CHECK FOR HORIZONTAL MATCH
+            if (item.PositionVector.x < dimentions - 2)
+            {
+                // get the square next to current one
+                nextSquare = GetSquareBehaviourByPosition(item.PositionVector.x + 1.0f, item.PositionVector.y);
 
+                if (item.CurrentSprite == nextSquare.CurrentSprite)
+                {
+                    // get the square next to that one
+                    nextNextSquare = GetSquareBehaviourByPosition(item.PositionVector.x + 2.0f, item.PositionVector.y);
+
+                    if(item.CurrentSprite == nextNextSquare.CurrentSprite)
+                    {
+                        Debug.Log("we have a horizontal match!");
+                        return true;
+                    }
+                }
+            }
+
+            // CHECK FOR VERTICAL MATCH
+            if (item.PositionVector.y < dimentions - 2)
+            {
+                // get the square next to current one
+                nextSquare = GetSquareBehaviourByPosition(item.PositionVector.x, item.PositionVector.y + 1.0f);
+
+                if (item.CurrentSprite == nextSquare.CurrentSprite)
+                {
+                    // get the square next to that one
+                    nextNextSquare = GetSquareBehaviourByPosition(item.PositionVector.x, item.PositionVector.y + 2.0f);
+
+                    if (item.CurrentSprite == nextNextSquare.CurrentSprite)
+                    {
+                        Debug.Log("we have a vertical match!");
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+    public void RemoveHighlights()
+    {
+        foreach (var item in squares)
+        {
+            item.hightlightSquare(false);
+        }
+    }
+
+    private SquareBehaviour GetSquareBehaviourByPosition(float x, float y)
+    {
         // check for matches
         foreach (var item in squares)
         {
-            //if (item.PositionVector.x >= (randX - 2) && item.PositionVector.x <= (randX + 2))
-            //{
-            //    if (item.PositionVector.y >= (randY - 2) && item.PositionVector.y <= (randY + 2))
-            //    {
-            //        item.setValue(m, Cut.QUARTER);
-            //    }
-            //}
-            //if (item.PositionVector.x >= (randX - 1) && item.PositionVector.x <= (randX + 1))
-            //{
-            //    if (item.PositionVector.y >= (randY - 1) && item.PositionVector.y <= (randY + 1))
-            //    {
-            //        item.setValue(m, Cut.HALF);
-            //    }
-            //}
-            //if (item.PositionVector.x == randX && item.PositionVector.x == randX)
-            //{
-            //    if (item.PositionVector.y == randY && item.PositionVector.y == randY)
-            //    {
-            //        item.setValue(m, Cut.FULL);
-            //    }
-            //}
+            if (item.PositionVector == new Vector2(x, y))
+            {
+                return item;
+            }
         }
+        return null;
+    }
+
+    private void DropColomn()
+    {
+
     }
 }

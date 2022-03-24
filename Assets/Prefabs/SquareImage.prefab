@@ -123,7 +123,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 8411319502784906914}
         m_TargetAssemblyTypeName: SquareBehaviour, Assembly-CSharp
-        m_MethodName: 
+        m_MethodName: SquareClicked
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -151,3 +151,4 @@ MonoBehaviour:
   sprite4: {fileID: -8237300656712290034, guid: b946f40b1b29b9b4a8bfb14a38af7dfe, type: 3}
   sprite5: {fileID: 4936446717753977596, guid: b946f40b1b29b9b4a8bfb14a38af7dfe, type: 3}
   sprite6: {fileID: 2024707005844731151, guid: b946f40b1b29b9b4a8bfb14a38af7dfe, type: 3}
+  highlightColour: {r: 0, g: 0.7249274, b: 1, a: 0.78039217}
