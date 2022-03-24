@@ -50,7 +50,7 @@ public class SquareBehaviour : MonoBehaviour
         positionVector = new Vector2(x, y);
     }
 
-    private void changeSquare(SpriteNumber sn)
+    public void changeSquare(SpriteNumber sn)
     {
         spriteNumber = sn;
 
@@ -73,6 +73,37 @@ public class SquareBehaviour : MonoBehaviour
                 break;
             case SpriteNumber.SIX:
                 GetComponent<Image>().sprite = sprite6;
+                break;
+        }
+    }
+
+    public void changeSquare(int sn)
+    {
+        switch (sn)
+        {
+            case 1:
+                GetComponent<Image>().sprite = sprite1;
+                spriteNumber = SpriteNumber.ONE;
+                break;
+            case 2:
+                GetComponent<Image>().sprite = sprite2;
+                spriteNumber = SpriteNumber.TWO;
+                break;
+            case 3:
+                GetComponent<Image>().sprite = sprite3;
+                spriteNumber = SpriteNumber.THREE;
+                break;
+            case 4:
+                GetComponent<Image>().sprite = sprite4;
+                spriteNumber = SpriteNumber.FOUR;
+                break;
+            case 5:
+                GetComponent<Image>().sprite = sprite5;
+                spriteNumber = SpriteNumber.FIVE;
+                break;
+            case 6:
+                GetComponent<Image>().sprite = sprite6;
+                spriteNumber = SpriteNumber.SIX;
                 break;
         }
     }

@@ -404,8 +404,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   squarePrefab: {fileID: 1660765478450114720, guid: 1566f74b482fb8a4b84dc39f70463ad2, type: 3}
-  dimentions: 12
-  distanceBetween: 42
+  dimentions: 10
+  distanceBetween: 50
 --- !u!114 &856435061
 MonoBehaviour:
   m_ObjectHideFlags: 0
