@@ -20,8 +20,16 @@ public class TileGrid : MonoBehaviour
     [SerializeField]
     private PlayerStats player;
 
+    private SoundManager sound;
+
+    int matchCount = 0;
+    int matchCountComp = 0;
+
     void Start()
     {
+        // Reference manager
+        sound = FindObjectOfType<SoundManager>();
+
         gridArray = new int[dimentions, dimentions];
 
         int one = 0, two = 0;
@@ -54,7 +62,6 @@ public class TileGrid : MonoBehaviour
 
     public void CheckSquares()
     {
-        int matchCount = 0;
         // Mark squares that have matches
         foreach (var item in squares)
         {
@@ -106,9 +113,6 @@ public class TileGrid : MonoBehaviour
             }
         }
 
-        // Increase player score
-        player.IncreaseMatchCount(matchCount);
-
         // Shuffle matched squares
         for (int i = squares.Count - 1; i >= 0; i--)
         {
@@ -122,13 +126,28 @@ public class TileGrid : MonoBehaviour
 
     public bool CheckIfWin()
     {
+        // player match sound if new match is made
+        if (matchCount > matchCountComp)
+        {
+            matchCountComp = matchCount;
+            sound.PlaySound(SoundManager.TrackID.MATCH);
+        }
+
         bool win = true;
+
+        // change the bool to false is any tiles is not coloured
         foreach (var item in squares)
         {
             if (!item.matched)
             {
                 win = false;
             }
+        }
+
+        // play win sound if all tiles are coloured
+        if (win)
+        {
+            sound.PlaySound(SoundManager.TrackID.WIN);
         }
         return win;
     }

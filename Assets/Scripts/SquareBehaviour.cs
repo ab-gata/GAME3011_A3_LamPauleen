@@ -36,6 +36,8 @@ public class SquareBehaviour : MonoBehaviour
     [SerializeField]
     private Color matchedColour;
 
+    private SoundManager sound;
+
     // position of square among the others
     private Vector2 positionVector = Vector2.zero;
     public Vector2 PositionVector { get { return positionVector; } }
@@ -53,6 +55,7 @@ public class SquareBehaviour : MonoBehaviour
     private void Start()
     {
         player = FindObjectOfType<PlayerStats>();
+        sound = FindObjectOfType<SoundManager>();
     }
 
     // Vector to keep track of the square's position in the grid
@@ -64,6 +67,8 @@ public class SquareBehaviour : MonoBehaviour
     // When square is clicked, highlight
     public void SquareClicked()
     {
+        sound.PlaySound(SoundManager.TrackID.CLICK);
+
         if (player.SecondSquareClicked)
         {
             // Swap tiles

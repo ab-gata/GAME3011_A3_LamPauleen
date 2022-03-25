@@ -27,9 +27,15 @@ public class PlayerStats : MonoBehaviour
     [SerializeField]
     private TMPro.TextMeshProUGUI infoText;
 
+    private SoundManager sound;
+
+    bool loseSoundPlayed = false;
+
     private void Start()
     {
         refreshUIText();
+
+        sound = FindObjectOfType<SoundManager>();
     }
 
     private void Update()
@@ -39,6 +45,11 @@ public class PlayerStats : MonoBehaviour
             if (timer < 0)
             {
                 InfoMessage("OUT OF TIME!!");
+                if (!loseSoundPlayed)
+                {
+                    sound.PlaySound(SoundManager.TrackID.LOSE);
+                    loseSoundPlayed = true;
+                }
             }
             else
             {
