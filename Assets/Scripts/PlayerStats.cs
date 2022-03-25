@@ -7,7 +7,8 @@ public class PlayerStats : MonoBehaviour
     // Stats
     private int playerMatchCount = 0;
     private int playerMatchCriteria = 10;
-    private int playerMoves = 20;
+    private int playerMovesCount = 0;
+    private float timer = 5;
 
     // Game status
     private bool secondSquareClicked = false;
@@ -22,6 +23,8 @@ public class PlayerStats : MonoBehaviour
     [SerializeField]
     private TMPro.TextMeshProUGUI criteriaText;
     [SerializeField]
+    private TMPro.TextMeshProUGUI movesText;
+    [SerializeField]
     private TMPro.TextMeshProUGUI infoText;
 
     private void Start()
@@ -29,20 +32,59 @@ public class PlayerStats : MonoBehaviour
         refreshUIText();
     }
 
+    private void Update()
+    {
+        if (tileGrid.isActiveAndEnabled)
+        {
+            if (timer < 0)
+            {
+                InfoMessage("OUT OF TIME!!");
+            }
+            else
+            {
+                timer -= Time.deltaTime;
+                infoText.text = "Time left = " + (int)timer;
+            }
+        }
+    }
+
 
     // Function to refresh the UI
     private void refreshUIText()
     {
-        criteriaText.text = "MAKE " + playerMatchCriteria + " MATCHES\n" + playerMatchCount;
-        infoText.text = "Moves Left : " + playerMoves;
+        criteriaText.text = "colour whole\nboard to win";
+        movesText.text = "Moves Made : " + playerMovesCount;
     }
 
     public void CheckSquares()
     {
-        while (tileGrid.CheckSquares())
-        {
+        // check if there are matches
+        tileGrid.CheckSquares();
 
-        }
+        // clear any extra highlights
         tileGrid.RemoveHighlights();
+
+        // check if player has completed objective
+        if (tileGrid.CheckIfWin())
+        {
+            InfoMessage("YOU WIN!");
+        }
+    }
+
+    public void IncreaseMatchCount(int val)
+    {
+        playerMatchCount += val;
+        refreshUIText();
+    }
+
+    public void IncreaseMoveCount()
+    {
+        playerMovesCount++;
+        refreshUIText();
+    }
+
+    public void InfoMessage(string msg)
+    {
+        infoText.text = msg;
     }
 }

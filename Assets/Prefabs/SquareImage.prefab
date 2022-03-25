@@ -37,7 +37,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 50, y: 50}
+  m_SizeDelta: {x: 70, y: 70}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7415678969962452126
 CanvasRenderer:
@@ -151,4 +151,6 @@ MonoBehaviour:
   sprite4: {fileID: -8237300656712290034, guid: b946f40b1b29b9b4a8bfb14a38af7dfe, type: 3}
   sprite5: {fileID: 4936446717753977596, guid: b946f40b1b29b9b4a8bfb14a38af7dfe, type: 3}
   sprite6: {fileID: 2024707005844731151, guid: b946f40b1b29b9b4a8bfb14a38af7dfe, type: 3}
-  highlightColour: {r: 0, g: 0.7249274, b: 1, a: 0.78039217}
+  highlightColour: {r: 0.5481434, g: 0, b: 1, a: 0.78039217}
+  matchedColour: {r: 0.17647058, g: 1, b: 0.68022674, a: 1}
+  matched: 0

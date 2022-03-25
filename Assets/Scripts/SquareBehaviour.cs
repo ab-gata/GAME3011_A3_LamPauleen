@@ -33,6 +33,8 @@ public class SquareBehaviour : MonoBehaviour
     // Hightlight colour when pressed
     [SerializeField]
     private Color highlightColour;
+    [SerializeField]
+    private Color matchedColour;
 
     // position of square among the others
     private Vector2 positionVector = Vector2.zero;
@@ -41,6 +43,9 @@ public class SquareBehaviour : MonoBehaviour
     // The value of the resources in the square
     private SpriteNumber currentSprite = SpriteNumber.ONE;
     public SpriteNumber CurrentSprite { get { return currentSprite; } }
+
+    // bools for flagging matches
+    public bool matched = false;
 
     // Reference to playerstats
     PlayerStats player = null;
@@ -68,6 +73,7 @@ public class SquareBehaviour : MonoBehaviour
 
             // reset click state checker
             player.SecondSquareClicked = false;
+            player.IncreaseMoveCount();
 
             // check for matches
             player.CheckSquares();
@@ -83,6 +89,7 @@ public class SquareBehaviour : MonoBehaviour
             // set click state checker
             player.SecondSquareClicked = true;
         }
+        player.InfoMessage("");
     }
 
     // Function to highlight that the square has been clicked
@@ -90,11 +97,21 @@ public class SquareBehaviour : MonoBehaviour
     {
         if (b)
         {
-            GetComponent<Image>().color = highlightColour;
+            if (matched)
+            {
+                GetComponent<Image>().color = matchedColour;
+            }
+            else
+            {
+                GetComponent<Image>().color = highlightColour;
+            }
         }
         else
         {
-            GetComponent<Image>().color = new Color(1.0f, 1.0f, 1.0f, 1.0f);
+            if (!matched)
+            {
+                GetComponent<Image>().color = new Color(1.0f, 1.0f, 1.0f, 1.0f);
+            }
         }
     }
 
