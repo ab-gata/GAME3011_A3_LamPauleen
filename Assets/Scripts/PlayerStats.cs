@@ -8,7 +8,7 @@ public class PlayerStats : MonoBehaviour
     private int playerMatchCount = 0;
     private int playerMatchCriteria = 10;
     private int playerMovesCount = 0;
-    private float timer = 5;
+    private float timer = 60;
 
     // Game status
     private bool secondSquareClicked = false;
